@@ -16,7 +16,7 @@ class BasicSpell:
                  value_drain_health=0,
                  value_drain_psyche=0,
                  value_drain_mana=0,
-                 count=0,
+                 count=1,
                  stun=0,
                  attack_stopper=False,
                  defend_stopper=False,
@@ -40,4 +40,5 @@ class BasicSpell:
         self.attack_stopper = attack_stopper          # Запрещает атаку
         self.defend_stopper = defend_stopper          # Запрещает защиту
 
-
+    def do(self):
+        pass

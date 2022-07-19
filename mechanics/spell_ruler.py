@@ -2,13 +2,13 @@
 
 class SpellRuler:
 
-    def __init__(self, first_spell_list, second_spell_list):
-        self.first_spell_list = first_spell_list
+    def __init__(self, spell_list):
+        self.spell_list = spell_list
 
-    def cast(self):
-        pass
+    def cast(self, new_spell):
+        self.spell_list.append(new_spell)
 
     def do(self):
-        for s in self.first_spell_list:
-            pass
+        for s in self.spell_list:
+            s.do()
 
