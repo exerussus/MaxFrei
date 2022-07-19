@@ -19,30 +19,49 @@ class BasicSpell:
                  light_magic=1,
                  dark_magic=1,
                  count=1,
-                 stun=0,
-                 attack_stopper=False,
-                 defend_stopper=False,
+                 stun_caster=0,
+                 stun_target=0,
+                 attack_stopper_caster=False,
+                 defend_stopper_caster=False,
+                 attack_stopper_target=False,
+                 defend_stopper_target=False,
+
                  ):
 
-        self.caster = caster                             # Тот, кто кастует
-        self.target = target                             # Тот, кто цель заклинания
-        self.spell_id = spell_id                         # идентификатор спелла
-        self.name = name                                 # Название
-        self.spell_type = spell_type                     # Тип спела (атака\защита)
-        self.subtype = subtype                           # Подтип спела (защита: абсолютная защита, щит, контрудар)
-        self.light_magic = light_magic                   # Ступень магии
-        self.dark_magic = dark_magic                     # Ступень магии
-        self.direction = direction                       # Направление спела (противник, на себя, может быть и оба)
-        self.value_health_caster = value_health_caster   # Количество здоровья применяющего
-        self.value_psyche_caster = value_psyche_caster   # Количество психики применяющего
-        self.value_mana_caster = value_mana_caster       # Количество энергии применяющего
-        self.value_health_target = value_health_target   # Похищение здоровья цели
-        self.value_psyche_target = value_psyche_target   # Похищение психики цели
-        self.value_mana_target = value_mana_target       # Похищение энергии цели
-        self.count = count                               # Количество ходов
-        self.stun = stun                                 # Пропуск хода
-        self.attack_stopper = attack_stopper             # Запрещает атаку
-        self.defend_stopper = defend_stopper             # Запрещает защиту
+        self.caster = caster                              # Тот, кто кастует
+        self.target = target                              # Тот, кто цель заклинания
+        self.spell_id = spell_id                          # идентификатор спелла
+        self.name = name                                  # Название
+        self.spell_type = spell_type                      # Тип спела (атака\защита)
+        self.subtype = subtype                            # Подтип спела (защита: абсолютная защита, щит, контрудар)
+        self.light_magic_spell = light_magic              # Ступень магии
+        self.dark_magic_spell = dark_magic                # Ступень магии
+        self.direction = direction                        # Направление спела (противник, на себя, может быть и оба)
+        self.value_health_caster = value_health_caster    # Количество здоровья применяющего
+        self.value_psyche_caster = value_psyche_caster    # Количество психики применяющего
+        self.value_mana_target = value_mana_caster        # Количество энергии цели
+        self.value_health_target = value_health_target    # Количество здоровья цели
+        self.value_psyche_target = value_psyche_target    # Количество психики цели
+        self.count = count                                # Количество ходов
+        self.stun_caster = stun_caster                    # Пропуск хода применяющего
+        self.stun_target = stun_target                    # Пропуск хода применяющего
+        self.attack_stopper_caster = attack_stopper_caster       # Запрещает атаку кастеру
+        self.defend_stopper_caster = defend_stopper_caster       # Запрещает защиту кастеру
+        self.attack_stopper_target = attack_stopper_target       # Запрещает атаку кастеру
+        self.defend_stopper_target = defend_stopper_target       # Запрещает защиту кастеру
+
+        # Логика для количества энергии цели
+        if self.caster.dark_magic_skill >= self.dark_magic_spell:
+            dark_cost = 0
+        else:
+            dark_cost = self.dark_magic_spell - self.caster.dark_magic_skill
+
+        if self.caster.light_magic_skill >= self.light_magic_spell:
+            light_cost = 0
+        else:
+            light_cost = self.light_magic_spell - self.caster.light_magic_skill
+
+        self.value_mana_caster = value_mana_target - dark_cost - light_cost  # Кол-тво энергии каста с учётом требований
 
     def do(self):
         pass
