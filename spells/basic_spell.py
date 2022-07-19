@@ -3,6 +3,8 @@
 class BasicSpell:
 
     def __init__(self,
+                 caster,
+                 target,
                  spell_id=0000,
                  name='',
                  spell_type='',
@@ -18,9 +20,10 @@ class BasicSpell:
                  stun=0,
                  attack_stopper=False,
                  defend_stopper=False,
-
                  ):
 
+        self.caster = caster                          # Тот, кто кастует
+        self.target = target                          # Тот, кто цель заклинания
         self.spell_id = spell_id                      # идентификатор спелла
         self.name = name                              # Название
         self.spell_type = spell_type                  # Тип спела (атака\защита)
@@ -36,5 +39,5 @@ class BasicSpell:
         self.stun = stun                              # Пропуск хода
         self.attack_stopper = attack_stopper          # Запрещает атаку
         self.defend_stopper = defend_stopper          # Запрещает защиту
-        
+
 
