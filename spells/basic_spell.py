@@ -3,8 +3,9 @@
 class BasicSpell:
 
     def __init__(self,
-                 caster,
-                 target,
+                 caster,   # Применяющий
+                 target,   # Цель заклинания
+                 random_mana_cost,   # Доп требование к энергии. Рандомная фигня
                  spell_id=0,
                  name='',
                  spell_type='',
@@ -25,6 +26,7 @@ class BasicSpell:
                  defend_stopper_caster=False,
                  attack_stopper_target=False,
                  defend_stopper_target=False,
+                 dispelling=False,
 
                  ):
 
@@ -49,6 +51,7 @@ class BasicSpell:
         self.defend_stopper_caster = defend_stopper_caster       # Запрещает защиту кастеру
         self.attack_stopper_target = attack_stopper_target       # Запрещает атаку кастеру
         self.defend_stopper_target = defend_stopper_target       # Запрещает защиту кастеру
+        self.dispelling = dispelling                             # Можно ли развеять
 
         # Логика для количества энергии цели
         if self.caster.dark_magic_skill >= self.dark_magic_spell:
@@ -60,8 +63,8 @@ class BasicSpell:
             light_cost = 0
         else:
             light_cost = self.light_magic_spell - self.caster.light_magic_skill
-
-        self.value_mana_caster = value_mana_target - dark_cost - light_cost  # Кол-тво энергии каста с учётом требований
+        all_cost = random_mana_cost + dark_cost + light_cost
+        self.value_mana_caster = value_mana_target - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
         pass
