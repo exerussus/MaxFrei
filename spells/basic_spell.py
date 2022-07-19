@@ -5,7 +5,7 @@ class BasicSpell:
     def __init__(self,
                  caster,
                  target,
-                 spell_id=0000,
+                 spell_id=0,
                  name='',
                  spell_type='',
                  subtype='',
