@@ -68,11 +68,11 @@ class BasicSpell:
 
     def do(self):
         self.caster.mana += self.value_mana_caster
-        self.caster.health = self.value_health_caster   # Количество здоровья применяющего
-        self.caster.psyche = self.value_psyche_caster   # Количество психики применяющего
-        self.target.mana = self.value_mana_target       # Количество энергии цели
-        self.target.health = self.value_health_target   # Количество здоровья цели
-        self.target.psyche = self.value_psyche_target
+        self.caster.health += self.value_health_caster   # Количество здоровья применяющего
+        self.caster.psyche += self.value_psyche_caster   # Количество психики применяющего
+        self.target.mana += self.value_mana_target       # Количество энергии цели
+        self.target.health += self.value_health_target   # Количество здоровья цели
+        self.target.psyche += self.value_psyche_target
 
         if self.stun_caster:
             self.caster.under_stun = True
