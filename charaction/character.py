@@ -33,6 +33,9 @@ class Character:
         self.luck = 3 if character_class != 'Истинный маг' else 4         # Удача
         self.alive = True                                                 # Жив или мёртв
         self.player = player                                              # Игровой ли персонаж
+        self.under_stun = False                                           # Под станом
+        self.attack_stopped = False
+        self.defend_stopped = False
 
     def __str__(self):
         return f'Имя: {self.name}\n' \

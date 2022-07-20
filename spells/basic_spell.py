@@ -9,7 +9,7 @@ class BasicSpell:
                  spell_id=0,
                  name='',
                  spell_type='',
-                 subtype='',
+                 subtype='',  # instant, periodic,
                  direction='',
                  value_health_caster=0,
                  value_psyche_caster=0,
@@ -67,4 +67,25 @@ class BasicSpell:
         self.value_mana_caster = value_mana_target - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
-        pass
+        self.caster.mana += self.value_mana_caster
+        self.caster.health = self.value_health_caster   # Количество здоровья применяющего
+        self.caster.psyche = self.value_psyche_caster   # Количество психики применяющего
+        self.target.mana = self.value_mana_target       # Количество энергии цели
+        self.target.health = self.value_health_target   # Количество здоровья цели
+        self.target.psyche = self.value_psyche_target
+
+        if self.stun_caster:
+            self.caster.under_stun = True
+        if self.stun_target:
+            self.target.under_stun = True
+        if self.attack_stopper_caster:
+            self.caster.attack_stopped = True
+        if self.defend_stopper_caster:
+            self.caster.defend_stopped = True
+        if self.attack_stopper_target:
+            self.target.attack_stopped = True
+        if self.defend_stopper_target:
+            self.target.defend_stopped = True
+        self.count -= 1
+
+
