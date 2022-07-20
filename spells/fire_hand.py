@@ -87,4 +87,6 @@ class BasicSpell:
             self.target.defend_stopped = True
         self.count -= 1
 
-
+    def __str__(self):
+        return "Заставляет сгустки воздуха перед ладонями разгораться до немыслимых" \
+               "температур, сжигая всё, что касается их."

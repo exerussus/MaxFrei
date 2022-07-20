@@ -88,4 +88,5 @@ class BasicSpell:
             self.target.defend_stopped = True
         self.count -= 1
 
-
+    def __str__(self):
+        return "BasicSpell - базовое заклинание, которое описано здесь."

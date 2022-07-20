@@ -5,7 +5,7 @@ class BattleGround:
 
         self.first_char = first_char
         self.second_char = second_char
-        self.spells = {}
+        self.spells = []
         self.loser = None
 
 # ************************************ НАЧАЛО ЛОГИКИ ************************************ #
@@ -61,7 +61,12 @@ class BattleGround:
 
     def main(self):
         """Здесь кастуются спелы и проходят проверки. Работает, пока кто-нибудь не проиграет"""
+        from mechanics.spell_ruler import SpellRuler
+
+        SpellRuler.do()
+
         while not self.loser:
+
             for spell in self.spells:
                 if spell.count > 0:
                     spell.do()
