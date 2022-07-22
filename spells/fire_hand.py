@@ -1,6 +1,6 @@
 
 
-class BasicSpell:
+class FireHand:
 
     def __init__(self,
                  caster,
