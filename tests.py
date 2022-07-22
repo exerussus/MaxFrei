@@ -30,7 +30,7 @@
 from spells.fire_hand import FireHand
 from charaction.character import Character
 
-my_hero = Character(name="Таранис", male="male")
+my_hero = Character(name="Таранис", male="male", dark_magic_skill=77, light_magic_skill=65)
 enemy = Character()
 test = FireHand(my_hero, enemy)
 print(test)
