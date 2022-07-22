@@ -44,7 +44,7 @@ class FireHand:
             light_cost = 0
         else:
             light_cost = self.light_magic_spell - self.caster.light_magic_skill
-        all_cost = choice([info[11]/5, -info[11]/5]) + dark_cost + light_cost
+        all_cost = dark_cost + light_cost
         self.value_mana_caster = info[11] - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
@@ -80,7 +80,7 @@ class FireHand:
                f"direction: {self.direction} \n" \
                f"value_health_caster: {self.value_health_caster} \n" \
                f"value_psyche_caster: {self.value_psyche_caster} \n" \
-               f"self.value_mana_caster: {self.value_mana_caster} \n" \
+               f"value_mana_caster: {self.value_mana_caster} \n" \
                f"value_health_target: {self.value_health_target} \n" \
                f"value_psyche_target: {self.value_psyche_target} \n" \
                f"value_mana_target: {self.value_mana_target} \n" \

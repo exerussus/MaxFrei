@@ -80,7 +80,7 @@ class BasicSpell:
                f"direction: {self.direction} \n" \
                f"value_health_caster: {self.value_health_caster} \n" \
                f"value_psyche_caster: {self.value_psyche_caster} \n" \
-               f"self.value_mana_caster: {self.value_mana_caster} \n" \
+               f"value_mana_caster: {self.value_mana_caster} \n" \
                f"value_health_target: {self.value_health_target} \n" \
                f"value_psyche_target: {self.value_psyche_target} \n" \
                f"value_mana_target: {self.value_mana_target} \n" \
