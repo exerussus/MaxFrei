@@ -1,31 +1,35 @@
 
 
 class FireHand:
+    from data.sql_commander import select_spell
+    info = select_spell(1)
 
     def __init__(self,
-                 caster,
-                 target,
-                 spell_id=1,
-                 name='Огненная ладонь',
-                 spell_type='attack',
-                 subtype='instant',
-                 direction='target',
-                 value_health_caster=0,
-                 value_psyche_caster=0,
-                 value_mana_caster=-15,
-                 value_health_target=-10,
-                 value_psyche_target=0,
-                 value_mana_target=0,
-                 light_magic=50,
-                 dark_magic=50,
-                 count=1,
-                 stun_caster=False,
-                 stun_target=False,
-                 attack_stopper_caster=False,
-                 defend_stopper_caster=False,
-                 attack_stopper_target=False,
-                 defend_stopper_target=False,
-                 dispelling=False,
+                 caster,   # Применяющий
+                 target,   # Цель заклинания
+                 spell_id=info[0],
+                 name=info[1],
+                 spell_type=info[2],
+                 subtype=info[3],  # instant, periodic,
+                 special_type=info[4],
+                 direction=info[5],
+                 value_health_caster=info[6],
+                 value_psyche_caster=info[7],
+                 value_mana_caster=info[8],
+                 value_health_target=info[9],
+                 value_psyche_target=info[10],
+                 value_mana_target=info[11],
+                 light_magic=info[12],
+                 dark_magic=info[13],
+                 count=info[14],
+                 stun_caster=info[15],
+                 stun_target=info[16],
+                 attack_stopper_caster=info[17],
+                 defend_stopper_caster=info[18],
+                 attack_stopper_target=info[19],
+                 defend_stopper_target=info[20],
+                 dispelling=info[21],
+                 description=info[22]
 
                  ):
 
@@ -35,6 +39,7 @@ class FireHand:
         self.name = name                                  # Название
         self.spell_type = spell_type                      # Тип спела (атака\защита)
         self.subtype = subtype                            # Подтип спела (защита: абсолютная защита, щит, контрудар)
+        self.special_type = special_type                  # Специальный тип
         self.light_magic_spell = light_magic              # Ступень магии
         self.dark_magic_spell = dark_magic                # Ступень магии
         self.direction = direction                        # Направление спела (противник, на себя, может быть и оба)
@@ -51,6 +56,7 @@ class FireHand:
         self.attack_stopper_target = attack_stopper_target       # Запрещает атаку кастеру
         self.defend_stopper_target = defend_stopper_target       # Запрещает защиту кастеру
         self.dispelling = dispelling                             # Можно ли развеять
+        self.description = description                           # Описание
 
         # Логика для количества энергии цели
         if self.caster.dark_magic_skill >= self.dark_magic_spell:
@@ -88,4 +94,4 @@ class FireHand:
         self.count -= 1
 
     def __str__(self):
-        return "Заставляет сгустки воздуха перед ладонями разгораться до немыслимых температур, сжигая всё, что касается их."
+        return self.description

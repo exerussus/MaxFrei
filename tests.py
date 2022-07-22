@@ -20,7 +20,10 @@
 #     for i in [battle.first_char, battle.second_char]:
 #         print(f'{i.name} имеет {i.health} здоровья и {i.psyche} психики')
 
-from charaction.character import Character
-char = Character(male="male")
-print(char)
+# from charaction.character import Character
+# char = Character(male="male")
+# print(char)
+
+from data.sql_commander import select_spell
+print(select_spell(1))
 

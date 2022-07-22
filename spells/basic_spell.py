@@ -1,32 +1,36 @@
+import random
 
 
 class BasicSpell:
+    from data.sql_commander import select_spell
+    info = select_spell(0)
 
     def __init__(self,
                  caster,   # Применяющий
                  target,   # Цель заклинания
-                 random_mana_cost,   # Доп требование к энергии. Рандомная фигня
-                 spell_id=0,
-                 name='',
-                 spell_type='',
-                 subtype='',  # instant, periodic,
-                 direction='',
-                 value_health_caster=0,
-                 value_psyche_caster=0,
-                 value_mana_caster=0,
-                 value_health_target=0,
-                 value_psyche_target=0,
-                 value_mana_target=0,
-                 light_magic=1,
-                 dark_magic=1,
-                 count=1,
-                 stun_caster=0,
-                 stun_target=0,
-                 attack_stopper_caster=False,
-                 defend_stopper_caster=False,
-                 attack_stopper_target=False,
-                 defend_stopper_target=False,
-                 dispelling=False,
+                 spell_id=info[0],
+                 name=info[1],
+                 spell_type=info[2],
+                 subtype=info[3],  # instant, periodic,
+                 special_type=info[4],
+                 direction=info[5],
+                 value_health_caster=info[6],
+                 value_psyche_caster=info[7],
+                 value_mana_caster=info[8],
+                 value_health_target=info[9],
+                 value_psyche_target=info[10],
+                 value_mana_target=info[11],
+                 light_magic=info[12],
+                 dark_magic=info[13],
+                 count=info[14],
+                 stun_caster=info[15],
+                 stun_target=info[16],
+                 attack_stopper_caster=info[17],
+                 defend_stopper_caster=info[18],
+                 attack_stopper_target=info[19],
+                 defend_stopper_target=info[20],
+                 dispelling=info[21],
+                 description=info[22]
 
                  ):
 
@@ -36,12 +40,13 @@ class BasicSpell:
         self.name = name                                  # Название
         self.spell_type = spell_type                      # Тип спела (атака\защита)
         self.subtype = subtype                            # Подтип спела (защита: абсолютная защита, щит, контрудар)
+        self.special_type = special_type                  # Специальный тип
         self.light_magic_spell = light_magic              # Ступень магии
         self.dark_magic_spell = dark_magic                # Ступень магии
         self.direction = direction                        # Направление спела (противник, на себя, может быть и оба)
         self.value_health_caster = value_health_caster    # Количество здоровья применяющего
         self.value_psyche_caster = value_psyche_caster    # Количество психики применяющего
-        self.value_mana_target = value_mana_caster        # Количество энергии цели
+        self.value_mana_target = value_mana_target       # Количество энергии цели
         self.value_health_target = value_health_target    # Количество здоровья цели
         self.value_psyche_target = value_psyche_target    # Количество психики цели
         self.count = count                                # Количество ходов
@@ -52,6 +57,7 @@ class BasicSpell:
         self.attack_stopper_target = attack_stopper_target       # Запрещает атаку кастеру
         self.defend_stopper_target = defend_stopper_target       # Запрещает защиту кастеру
         self.dispelling = dispelling                             # Можно ли развеять
+        self.description = description                           # Описание
 
         # Логика для количества энергии цели
         if self.caster.dark_magic_skill >= self.dark_magic_spell:
@@ -63,8 +69,8 @@ class BasicSpell:
             light_cost = 0
         else:
             light_cost = self.light_magic_spell - self.caster.light_magic_skill
-        all_cost = random_mana_cost + dark_cost + light_cost
-        self.value_mana_caster = value_mana_target - all_cost  # Кол-тво энергии кастера с учётом всех требований
+        all_cost = random.choice([value_mana_caster/5, -value_mana_caster/5]) + dark_cost + light_cost
+        self.value_mana_caster = value_mana_caster - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
         self.caster.mana += self.value_mana_caster
@@ -89,4 +95,5 @@ class BasicSpell:
         self.count -= 1
 
     def __str__(self):
-        return "BasicSpell - базовое заклинание, которое описано здесь."
+        return self.description
+

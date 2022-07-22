@@ -74,5 +74,5 @@ def select_spell(spell_id):
     return cursor.fetchall()
 
 
-print(select_spell(1))
+
 
