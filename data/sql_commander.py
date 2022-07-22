@@ -9,6 +9,7 @@ def create_table():
     # Создание таблицы
     cursor.execute('CREATE TABLE IF NOT EXISTS spell('
                    'spell_id VARCHAR PRIMARY KEY,'
+                   'name VARCHAR,'
                    'spell_type VARCHAR,'
                    'sub_type VARCHAR,'
                    'special_type VARCHAR,'
@@ -55,8 +56,6 @@ def full_random_name(gender):
 
     # Получение данных из таблицы
     cursor.execute(f"""SELECT name FROM name where gender = "{gender}";""")
-    # names = cursor.fetchall()
-    # list_first_names = [name[0] for name in names]
     first_name = choice(cursor.fetchall())
 
     cursor.execute(f"""SELECT * FROM second_names;""")
@@ -68,5 +67,12 @@ def full_random_name(gender):
     return first_name, second_name, order
 
 
+def select_spell(spell_id):
+    db = sqlite3.connect('data/spells_base.db')
+    cursor = db.cursor()
+    cursor.execute(f"""SELECT * FROM spell where spell_id = "{spell_id}";""")
+    return cursor.fetchall()
 
-create_table()
+
+print(select_spell(1))
+
