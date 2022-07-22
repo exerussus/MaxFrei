@@ -3,13 +3,33 @@ import sqlite3
 
 def create_table():
 
-    db = sqlite3.connect('names_base.db')
+    db = sqlite3.connect('spells_base.db')
     cursor = db.cursor()
 
     # Создание таблицы
-    cursor.execute('CREATE TABLE IF NOT EXISTS name(\n'
-                'name VARCHAR PRIMARY KEY,\n'
-                'gender VARCHAR);\n')
+    cursor.execute('CREATE TABLE IF NOT EXISTS spell('
+                   'spell_id VARCHAR PRIMARY KEY,'
+                   'spell_type VARCHAR,'
+                   'sub_type VARCHAR,'
+                   'special_type VARCHAR,'
+                   'direction VARCHAR,'
+                   'value_health_caster VARCHAR,'
+                   'value_psyche_caster VARCHAR,'
+                   'value_mana_caster VARCHAR,'
+                   'value_health_target VARCHAR,'
+                   'value_psyche_target VARCHAR,'
+                   'value_mana_target VARCHAR,'
+                   'light_magic VARCHAR,'
+                   'dark_magic VARCHAR,'
+                   'count VARCHAR,'
+                   'stun_caster VARCHAR,'
+                   'stun_target VARCHAR,'
+                   'attack_stopper_caster VARCHAR,'
+                   'defend_stopper_caster VARCHAR,'
+                   'attack_stopper_target VARCHAR,'
+                   'defend_stopper_target VARCHAR,'
+                   'dispelling VARCHAR,'
+                   'gender VARCHAR);')
     db.commit()  # Сохранение изменений
 
 
@@ -49,3 +69,4 @@ def full_random_name(gender):
 
 
 
+create_table()
