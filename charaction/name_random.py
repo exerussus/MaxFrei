@@ -3,10 +3,12 @@
 class NameRandom:
 
     @staticmethod
-    def choice(male):
-        from data.data_names import data_names
+    def choice(gender=None):
+        from data.sql_commander import full_random_name
         from random import choice
-        first = choice(data_names[male]['first'])
-        second = choice(data_names['second'])
-        order = choice(data_names['order'])
-        return f'{first} {second} из ордена {order}'
+
+        firsts, seconds, orders = full_random_name(gender)
+        first_name = choice(firsts)
+        second_name = choice(seconds)
+        order = choice(orders)
+        return f"{first_name} {second_name} из ордена {order}"
