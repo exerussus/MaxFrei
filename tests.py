@@ -24,6 +24,13 @@
 # char = Character(male="male")
 # print(char)
 
-from data.sql_commander import select_spell
-print(select_spell(1))
+# from data.sql_commander import select_spell
+# print(select_spell(1))
 
+from spells.fire_hand import FireHand
+from charaction.character import Character
+
+my_hero = Character(name="Таранис", male="male")
+enemy = Character()
+test = FireHand(my_hero, enemy)
+print(test)

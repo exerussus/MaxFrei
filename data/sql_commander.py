@@ -71,7 +71,7 @@ def select_spell(spell_id):
     db = sqlite3.connect('data/spells_base.db')
     cursor = db.cursor()
     cursor.execute(f"""SELECT * FROM spell where spell_id = "{spell_id}";""")
-    return cursor.fetchall()
+    return cursor.fetchall()[0]
 
 
 
