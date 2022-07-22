@@ -45,6 +45,8 @@ class BasicSpell:
         else:
             light_cost = self.light_magic_spell - self.caster.light_magic_skill
         all_cost = choice([info[11]/5, -info[11]/5]) + dark_cost + light_cost
+        if all_cost < info[11]/2:
+            all_cost = info[11]/2
         self.value_mana_caster = info[11] - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
