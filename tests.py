@@ -45,4 +45,11 @@ def test_spell_casting():
             break
 
 
-test_spell_casting()
+def sql_check():
+    from data.sql_commander import check_length_characters
+
+    print(len(check_length_characters()))
+
+
+sql_check()
+

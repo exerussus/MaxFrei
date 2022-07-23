@@ -3,7 +3,7 @@ import sqlite3
 
 def create_spell_table():
 
-    db = sqlite3.connect('spells_base.db')
+    db = sqlite3.connect('data_base.db')
     cursor = db.cursor()
 
     # Создание таблицы
@@ -36,7 +36,7 @@ def create_spell_table():
 
 def create_character_table():
 
-    db = sqlite3.connect('characters_base.db')
+    db = sqlite3.connect('data_base.db')
     cursor = db.cursor()
 
     # Создание таблицы
@@ -65,7 +65,7 @@ def create_character_table():
 
 def add_names():
 
-    db = sqlite3.connect('names_base.db')
+    db = sqlite3.connect('data_base.db')
     cursor = db.cursor()
     # Добавление данных из нескольких кортежей
     users = [('Beth', 'female'), ('Ilya', 'male')]
@@ -76,7 +76,7 @@ def add_names():
 def full_random_name(gender):
     """Генерирует полное имя персонажа"""
     from random import choice
-    db = sqlite3.connect('data/names_base.db')
+    db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
 
     if not gender:
@@ -97,17 +97,26 @@ def full_random_name(gender):
 
 
 def select_spell(spell_id):
-    db = sqlite3.connect('data/spells_base.db')
+    db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
     cursor.execute(f"""SELECT * FROM spell where spell_id = "{spell_id}";""")
     return cursor.fetchall()[0]
 
 
 def select_character(char_id):
-    db = sqlite3.connect('data/spells_base.db')
+    db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
     cursor.execute(f"""SELECT * FROM spell where spell_id = "{char_id}";""")
     return cursor.fetchall()
+
+
+def check_length_characters():
+    db = sqlite3.connect('data/data_base.db')
+    cursor = db.cursor()
+
+    cursor.execute(f"""SELECT character_id FROM character;""")
+    result = cursor.fetchall()
+    return len(result)
 
 
 def create_character(
@@ -117,22 +126,28 @@ def create_character(
                  psyche=100,
                  dark_magic_skill=15,
                  light_magic_skill=15,
+                 character_class_id=1,
                  character_class='Убийца',
                  gender='',
                  player=False):
 
-    db = sqlite3.connect('data/characters_base.db')
+    db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
+
+    cursor.execute(f"""SELECT spells FROM character where character_id={};""")
+    spell_id = cursor.fetchall()
+
+    spells =
     # Добавление данных из кортежа
-    new_char = (f'{character_id}', f'{gender}', f'{name}', f'{health}',
+    new_char = (f'{check_length_characters()}', f'{gender}', f'{name}', f'{health}',
                 f'{health}', f'{psyche}', f'{psyche}',
                 f'{mana}', f'{mana}', f'{dark_magic_skill}',
-                f'{light_magic_skill}', f'{character_class}',
+                f'{light_magic_skill}', f'{character_class_id}', f'{character_class}',
                 f'{spells}', f'{3}', f'{True}', f'{player}',
                 f'{False}', f'{False}', f'{False}')
-    cursor.execute("INSERT INTO users VALUES(?, ?, ?, ?);", new_char)
+    cursor.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new_char)
     db.commit()
 
 
-create_character_table()
+
 
