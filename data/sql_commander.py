@@ -134,10 +134,10 @@ def create_character(
     db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
 
-    cursor.execute(f"""SELECT spells FROM character where character_id={};""")
+    cursor.execute(f"""SELECT spells FROM character where character_id={check_length_characters()};""")
     spell_id = cursor.fetchall()
 
-    spells =
+    spells = None
     # Добавление данных из кортежа
     new_char = (f'{check_length_characters()}', f'{gender}', f'{name}', f'{health}',
                 f'{health}', f'{psyche}', f'{psyche}',

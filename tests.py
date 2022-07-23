@@ -46,10 +46,13 @@ def test_spell_casting():
 
 
 def sql_check():
-    from data.sql_commander import check_length_characters
+    import sqlite3
+    db = sqlite3.connect('data/data_base.db')
+    cursor = db.cursor()
 
-    print(len(check_length_characters()))
+    cursor.execute(f""" """)
+    return cursor.fetchall()
 
 
-sql_check()
+print(sql_check())
 
