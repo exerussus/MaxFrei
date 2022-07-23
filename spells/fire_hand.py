@@ -9,30 +9,30 @@ class FireHand:
         from data.sql_commander import select_spell
         from random import choice
         info = select_spell(1)
-        self.caster = caster                              # Тот, кто кастует
-        self.target = target                              # Тот, кто цель заклинания
-        self.spell_id = info[0]                          # идентификатор спелла
-        self.name = info[1]                                 # Название
-        self.spell_type = info[2]                      # Тип спела (атака\защита)
-        self.subtype = info[3]                           # Подтип спела (защита: абсолютная защита, щит, контрудар)
-        self.special_type = info[4]                  # Специальный тип
-        self.light_magic_spell = info[12]              # Ступень магии
-        self.dark_magic_spell = info[13]                # Ступень магии
-        self.direction = info[5]                        # Направление спела (противник, на себя, может быть и оба)
-        self.value_health_caster = info[6]    # Количество здоровья применяющего
-        self.value_psyche_caster = info[7]    # Количество психики применяющего
-        self.value_mana_target = info[8]       # Количество энергии цели
-        self.value_health_target = info[9]    # Количество здоровья цели
-        self.value_psyche_target = info[10]    # Количество психики цели
-        self.count = info[14]                                # Количество ходов
-        self.stun_caster = info[15]                    # Пропуск хода применяющего
-        self.stun_target = info[16]                    # Пропуск хода применяющего
-        self.attack_stopper_caster = info[17]       # Запрещает атаку кастеру
-        self.defend_stopper_caster = info[18]       # Запрещает защиту кастеру
-        self.attack_stopper_target = info[19]       # Запрещает атаку кастеру
-        self.defend_stopper_target = info[20]       # Запрещает защиту кастеру
-        self.dispelling = info[21]                             # Можно ли развеять
-        self.description = info[22]                           # Описание
+        self.caster = caster  # Тот, кто кастует
+        self.target = target  # Тот, кто цель заклинания
+        self.spell_id = info[0]  # идентификатор спелла
+        self.name = info[1]  # Название
+        self.spell_type = info[2]  # Тип спела (атака\защита)
+        self.subtype = info[3]  # Подтип спела (защита: абсолютная защита, щит, контрудар)
+        self.special_type = info[4]  # Специальный тип
+        self.direction = info[5]  # Направление спела (противник, на себя, может быть и оба)
+        self.value_health_caster = info[6]  # Количество здоровья применяющего
+        self.value_psyche_caster = info[7]  # Количество психики применяющего
+        self.value_mana_target = info[11]  # Количество энергии цели
+        self.value_health_target = info[9]  # Количество здоровья цели
+        self.value_psyche_target = info[10]  # Количество психики цели
+        self.light_magic_spell = info[12]  # Ступень магии
+        self.dark_magic_spell = info[13]  # Ступень магии
+        self.count = info[14]  # Количество ходов
+        self.stun_caster = info[15]  # Пропуск хода применяющего
+        self.stun_target = info[16]  # Пропуск хода применяющего
+        self.attack_stopper_caster = info[17]  # Запрещает атаку кастеру
+        self.defend_stopper_caster = info[18]  # Запрещает защиту кастеру
+        self.attack_stopper_target = info[19]  # Запрещает атаку кастеру
+        self.defend_stopper_target = info[20]  # Запрещает защиту кастеру
+        self.dispelling = info[21]  # Можно ли развеять
+        self.description = info[22]  # Описание
 
         # Логика для количества энергии цели
         if self.caster.dark_magic_skill >= self.dark_magic_spell:
@@ -44,15 +44,17 @@ class FireHand:
             light_cost = 0
         else:
             light_cost = self.light_magic_spell - self.caster.light_magic_skill
-        all_cost = dark_cost + light_cost
-        self.value_mana_caster = info[11] - all_cost  # Кол-тво энергии кастера с учётом всех требований
+        all_cost = choice([info[8] / 5, -info[8] / 5]) + dark_cost + light_cost
+        if all_cost < info[8] / 2:
+            all_cost = info[8] / 2
+        self.value_mana_caster = info[8] - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
         self.caster.mana += self.value_mana_caster
-        self.caster.health += self.value_health_caster   # Количество здоровья применяющего
-        self.caster.psyche += self.value_psyche_caster   # Количество психики применяющего
-        self.target.mana += self.value_mana_target       # Количество энергии цели
-        self.target.health += self.value_health_target   # Количество здоровья цели
+        self.caster.health += self.value_health_caster  # Количество здоровья применяющего
+        self.caster.psyche += self.value_psyche_caster  # Количество психики применяющего
+        self.target.mana += self.value_mana_target  # Количество энергии цели
+        self.target.health += self.value_health_target  # Количество здоровья цели
         self.target.psyche += self.value_psyche_target
 
         if self.stun_caster:
@@ -93,3 +95,5 @@ class FireHand:
                f"defend_stopper_target: {self.defend_stopper_target} \n" \
                f"dispelling: {self.dispelling} \n" \
                f"description: {self.description}"
+
+

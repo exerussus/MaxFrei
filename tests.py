@@ -27,10 +27,22 @@
 # from data.sql_commander import select_spell
 # print(select_spell(1))
 
-from spells.fire_hand import FireHand
-from charaction.character import Character
+def test_spell_casting():
+    from spells.fire_hand import FireHand
+    from charaction.character import Character
 
-my_hero = Character(name="Таранис", male="male", dark_magic_skill=77, light_magic_skill=65)
-enemy = Character()
-test = FireHand(my_hero, enemy)
-print(test)
+    my_hero = Character(name="Таранис", male="male", dark_magic_skill=77, light_magic_skill=65)
+    enemy = Character()
+    test = FireHand(my_hero, enemy)
+    print(test)
+    print('\n')
+    while True:
+        print(test.do())
+        print(f"Кастующий герой: здоровье - {my_hero.health}, а энергия - {my_hero.mana}")
+        print(f"Герой-цель: здоровье - {enemy.health}, а энергия - {enemy.mana}")
+        x = input("Next...")
+        if x in ['No', 'no', 'NO', 'nO']:
+            break
+
+
+test_spell_casting()
