@@ -1,31 +1,25 @@
 
-# def battle_test():
-#     from charaction.character import Character
-#     from battle.battle_ground import BattleGround
-#
-#     max_frei = Character(name='Макс Фрай', character_class='Истинный маг')
-#     enemy = Character()
-#     battle = BattleGround(max_frei, enemy)
-#
-#     battle.first_char.health -= 22
-#     battle.first_char.psyche += 2
-#     battle.second_char.health -= 22
-#     battle.second_char.psyche += 2
-#
-#     print('\nВне баттла: ')
-#     for i in [max_frei, enemy]:
-#         print(f'{i.name} имеет {i.health} здоровья и {i.psyche} психики')
-#
-#     print('\nВ баттле: ')
-#     for i in [battle.first_char, battle.second_char]:
-#         print(f'{i.name} имеет {i.health} здоровья и {i.psyche} психики')
+def battle_test():
+    from charaction.newcharacter import NewCharacter
+    from battle.battle_ground import BattleGround
 
-# from charaction.character import Character
-# char = Character(male="male")
-# print(char)
+    max_frei = NewCharacter(name='Макс Фрай', character_class='Истинный маг')
+    enemy = NewCharacter()
+    battle = BattleGround(max_frei, enemy)
 
-# from data.sql_commander import select_spell
-# print(select_spell(1))
+    battle.first_char.health -= 22
+    battle.first_char.psyche += 2
+    battle.second_char.health -= 22
+    battle.second_char.psyche += 2
+
+    print('\nВне баттла: ')
+    for i in [max_frei, enemy]:
+        print(f'{i.name} имеет {i.health} здоровья и {i.psyche} психики')
+
+    print('\nВ баттле: ')
+    for i in [battle.first_char, battle.second_char]:
+        print(f'{i.name} имеет {i.health} здоровья и {i.psyche} психики')
+
 
 def test_spell_casting():
     from spells.fire_hand import FireHand
