@@ -8,21 +8,21 @@ def create_spell_table():
 
     # Создание таблицы
     cursor.execute('CREATE TABLE IF NOT EXISTS spell('
-                   'spell_id VARCHAR PRIMARY KEY,'
+                   'spell_id INT PRIMARY KEY,'
                    'name VARCHAR,'
                    'spell_type VARCHAR,'
                    'sub_type VARCHAR,'
                    'special_type VARCHAR,'
                    'direction VARCHAR,'
-                   'value_health_caster VARCHAR,'
-                   'value_psyche_caster VARCHAR,'
-                   'value_mana_caster VARCHAR,'
-                   'value_health_target VARCHAR,'
-                   'value_psyche_target VARCHAR,'
-                   'value_mana_target VARCHAR,'
-                   'light_magic VARCHAR,'
-                   'dark_magic VARCHAR,'
-                   'count VARCHAR,'
+                   'value_health_caster INT,'
+                   'value_psyche_caster INT,'
+                   'value_mana_caster INT,'
+                   'value_health_target INT,'
+                   'value_psyche_target INT,'
+                   'value_mana_target INT,'
+                   'light_magic INT,'
+                   'dark_magic INT,'
+                   'count INT,'
                    'stun_caster VARCHAR,'
                    'stun_target VARCHAR,'
                    'attack_stopper_caster VARCHAR,'
@@ -127,25 +127,23 @@ def create_character(
                  dark_magic_skill=15,
                  light_magic_skill=15,
                  character_class_id=1,
-                 character_class='Убийца',
                  gender='',
                  player=False):
+    from random import choice
+    from charaction.name_random import NameRandom
 
     db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
-
-    cursor.execute(f"""SELECT spells FROM character where character_id={check_length_characters()};""")
-    spell_id = cursor.fetchall()
-
-    spells = None
+    gender = gender if gender not in ['', None] else choice(['male', 'female'])
+    name = NameRandom.choice(gender)
+    spell_id = character_class_id
     # Добавление данных из кортежа
     new_char = (f'{check_length_characters()}', f'{gender}', f'{name}', f'{health}',
                 f'{health}', f'{psyche}', f'{psyche}',
                 f'{mana}', f'{mana}', f'{dark_magic_skill}',
-                f'{light_magic_skill}', f'{character_class_id}', f'{character_class}',
-                f'{spells}', f'{3}', f'{True}', f'{player}',
-                f'{False}', f'{False}', f'{False}')
-    cursor.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new_char)
+                f'{light_magic_skill}', f'{character_class_id}', f'{spell_id}',
+                f'{3}', f'{True}', f'{player}', f'{True}', f'{False}', f'{False}')
+    cursor.execute("INSERT INTO character VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new_char)
     db.commit()
 
 

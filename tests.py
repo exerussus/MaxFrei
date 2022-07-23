@@ -54,5 +54,11 @@ def sql_check():
     return cursor.fetchall()
 
 
-print(sql_check())
+def sql_create_char():
+    from data.sql_commander import create_character
+
+    create_character()
+
+
+sql_create_char()
 

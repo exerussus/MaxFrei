@@ -14,7 +14,6 @@ class NewCharacter:
                  gender='',
                  player=False):
 
-        from data.data_spells import data_spells
         from charaction.name_random import NameRandom
         from random import choice
         from data.sql_commander import select_character
