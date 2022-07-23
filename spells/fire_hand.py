@@ -50,8 +50,9 @@ class FireHand:
         self.value_mana_caster = info[8] - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
+        from random import choice
         self.caster.mana += self.value_mana_caster
-        self.caster.health += self.value_health_caster  # Количество здоровья применяющего
+        self.caster.health += self.value_health_caster - choice([1, 2, 3, 4])  # Количество здоровья применяющего
         self.caster.psyche += self.value_psyche_caster  # Количество психики применяющего
         self.target.mana += self.value_mana_target  # Количество энергии цели
         self.target.health += self.value_health_target  # Количество здоровья цели
@@ -61,6 +62,7 @@ class FireHand:
             self.caster.under_stun = True
         if self.stun_target:
             self.target.under_stun = True
+
         if self.attack_stopper_caster:
             self.caster.attack_stopped = True
         if self.defend_stopper_caster:

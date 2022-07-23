@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def create_table():
+def create_spell_table():
 
     db = sqlite3.connect('spells_base.db')
     cursor = db.cursor()
@@ -31,6 +31,35 @@ def create_table():
                    'defend_stopper_target VARCHAR,'
                    'dispelling VARCHAR,'
                    'gender VARCHAR);')
+    db.commit()  # Сохранение изменений
+
+
+def create_character_table():
+
+    db = sqlite3.connect('characters_base.db')
+    cursor = db.cursor()
+
+    # Создание таблицы
+    cursor.execute('CREATE TABLE IF NOT EXISTS character('
+                   'character_id INT PRIMARY KEY,'
+                   'gender VARCHAR,'
+                   'name VARCHAR,'
+                   'health INT,'
+                   'max_health INT,'
+                   'psyche INT,'
+                   'max_psyche INT,'
+                   'mana INT,'
+                   'max_mana INT,'
+                   'dark_magic_skill INT,'
+                   'light_magic_skill INT,'
+                   'character_class INT,'
+                   'spells INT,'
+                   'luck INT,'
+                   'alive VARCHAR,'
+                   'player VARCHAR,'
+                   'under_stun VARCHAR,'
+                   'attack_stopped VARCHAR,'
+                   'defend_stopped VARCHAR);')
     db.commit()  # Сохранение изменений
 
 
@@ -74,5 +103,36 @@ def select_spell(spell_id):
     return cursor.fetchall()[0]
 
 
+def select_character(char_id):
+    db = sqlite3.connect('data/spells_base.db')
+    cursor = db.cursor()
+    cursor.execute(f"""SELECT * FROM spell where spell_id = "{char_id}";""")
+    return cursor.fetchall()
 
+
+def create_character(
+                 name='',
+                 health=100,
+                 mana=100,
+                 psyche=100,
+                 dark_magic_skill=15,
+                 light_magic_skill=15,
+                 character_class='Убийца',
+                 gender='',
+                 player=False):
+
+    db = sqlite3.connect('data/characters_base.db')
+    cursor = db.cursor()
+    # Добавление данных из кортежа
+    new_char = (f'{character_id}', f'{gender}', f'{name}', f'{health}',
+                f'{health}', f'{psyche}', f'{psyche}',
+                f'{mana}', f'{mana}', f'{dark_magic_skill}',
+                f'{light_magic_skill}', f'{character_class}',
+                f'{spells}', f'{3}', f'{True}', f'{player}',
+                f'{False}', f'{False}', f'{False}')
+    cursor.execute("INSERT INTO users VALUES(?, ?, ?, ?);", new_char)
+    db.commit()
+
+
+create_character_table()
 
