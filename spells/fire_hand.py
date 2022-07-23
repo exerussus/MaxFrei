@@ -52,10 +52,10 @@ class FireHand:
     def do(self):
         from random import choice
         self.caster.mana += self.value_mana_caster
-        self.caster.health += self.value_health_caster - choice([1, 2, 3, 4])  # Количество здоровья применяющего
+        self.caster.health += self.value_health_caster  # Количество здоровья применяющего
         self.caster.psyche += self.value_psyche_caster  # Количество психики применяющего
         self.target.mana += self.value_mana_target  # Количество энергии цели
-        self.target.health += self.value_health_target  # Количество здоровья цели
+        self.target.health += self.value_health_target - choice([1, 2, 3, 4])  # Количество здоровья цели
         self.target.psyche += self.value_psyche_target
 
         if self.stun_caster:
