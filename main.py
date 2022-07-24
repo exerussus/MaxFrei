@@ -1,4 +1,4 @@
-from charaction.newcharacter import NewCharacter
+from charaction.character import Character
 from battle.battle_ground import BattleGround
 
 

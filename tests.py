@@ -1,10 +1,10 @@
 
 def battle_test():
-    from charaction.newcharacter import NewCharacter
+    from charaction.character import Character
     from battle.battle_ground import BattleGround
 
-    max_frei = NewCharacter(name='Макс Фрай', character_class='Истинный маг')
-    enemy = NewCharacter()
+    max_frei = Character(name='Макс Фрай', character_class='Истинный маг')
+    enemy = Character()
     battle = BattleGround(max_frei, enemy)
 
     battle.first_char.health -= 22
@@ -23,10 +23,10 @@ def battle_test():
 
 def test_spell_casting():
     from spells.fire_hand import FireHand
-    from charaction.newcharacter import NewCharacter
+    from charaction.character import Character
 
-    my_hero = NewCharacter(name="Таранис", gender="male", dark_magic_skill=77, light_magic_skill=65)
-    enemy = NewCharacter()
+    my_hero = Character(name="Таранис", gender="male", dark_magic_skill=77, light_magic_skill=65)
+    enemy = Character()
     test = FireHand(my_hero, enemy)
     print(test)
     print('\n')
@@ -54,5 +54,25 @@ def sql_create_char():
     create_character()
 
 
-sql_create_char()
+def sql_check_get_character():
+    from data.sql_commander import get_character
+    from data.sql_commander import create_character
+
+    print(get_character(create_character()))
+
+
+def class_check_new_character():
+    from charaction.character import Character
+    my_hero = Character(name="Таранис Джонс", gender='male')
+    print(my_hero)
+
+
+def check_old_character(character_id):
+
+    from charaction.character import Character
+    my_hero = Character(character_id=character_id)
+    print(my_hero)
+
+
+check_old_character(1)
 

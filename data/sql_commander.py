@@ -103,13 +103,6 @@ def select_spell(spell_id):
     return cursor.fetchall()[0]
 
 
-def select_character(char_id):
-    db = sqlite3.connect('data/data_base.db')
-    cursor = db.cursor()
-    cursor.execute(f"""SELECT * FROM spell where spell_id = "{char_id}";""")
-    return cursor.fetchall()
-
-
 def check_length_characters():
     db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
@@ -119,26 +112,39 @@ def check_length_characters():
     return len(result)
 
 
+def get_character(character_id):
+    """Извлекает полную инфу о персонаже из data_base"""
+
+    import sqlite3
+
+    db = sqlite3.connect('data/data_base.db')
+    cursor = db.cursor()
+
+    cursor.execute(f"""SELECT * FROM character WHERE character_id = {character_id}""")
+    return cursor.fetchall()[0]
+
+
 def create_character(
-                 name='',
-                 health=100,
-                 mana=100,
-                 psyche=100,
-                 dark_magic_skill=15,
-                 light_magic_skill=15,
-                 character_class_id=1,
-                 gender='',
-                 player=False):
+                 name,
+                 health,
+                 mana,
+                 psyche,
+                 dark_magic_skill,
+                 light_magic_skill,
+                 character_class_id,
+                 gender,
+                 player):
     from random import choice
     from charaction.name_random import NameRandom
 
     db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
     gender = gender if gender not in ['', None] else choice(['male', 'female'])
-    name = NameRandom.choice(gender)
+    name = NameRandom.choice(gender) if name in ['', None] else name
     spell_id = character_class_id
+    character_id = check_length_characters()
     # Добавление данных из кортежа
-    new_char = (f'{check_length_characters()}', f'{gender}', f'{name}', f'{health}',
+    new_char = (f'{character_id}', f'{gender}', f'{name}', f'{health}',
                 f'{health}', f'{psyche}', f'{psyche}',
                 f'{mana}', f'{mana}', f'{dark_magic_skill}',
                 f'{light_magic_skill}', f'{character_class_id}', f'{spell_id}',
@@ -146,6 +152,6 @@ def create_character(
     cursor.execute("INSERT INTO character VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new_char)
     db.commit()
 
-
+    return character_id
 
 
