@@ -61,6 +61,15 @@ def check_character(character_id=None):
     print(my_hero)
 
 
+def check_select_spell_list(character_id=None):
+    from data.sql_commander import select_spell_list
+    from charaction.character import Character
+
+    my_hero = Character(character_id=character_id)
+    print(my_hero)
+
+
+check_select_spell_list(character_id=1)
 
 
 

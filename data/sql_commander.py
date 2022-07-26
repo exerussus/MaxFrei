@@ -155,3 +155,29 @@ def create_character(
     return character_id
 
 
+def select_spell_list(character_id):
+    from spells.spell_description import DescriptionSpell
+    db = sqlite3.connect('data/data_base.db')
+    cursor = db.cursor()
+    cursor.execute(f"""SELECT spells FROM character WHERE character_id = {character_id};""")
+    spell_list_id = cursor.fetchone()[0]
+
+    cursor.execute(f"""SELECT * 
+                       FROM spell_list_table WHERE spell_list_id = {spell_list_id};""")
+    spell_list_raw = cursor.fetchall()[0]
+    # кошмарный костыль, надо заменить на нормальный select
+    count = 0
+    spell_list = []
+    for spell in spell_list_raw:
+        if count > 0:
+            spell_list.append(spell)
+        count += 1
+
+    result = []
+
+    for spell in spell_list:
+        result.append(DescriptionSpell(select_spell(spell)))
+
+    return result
+
+

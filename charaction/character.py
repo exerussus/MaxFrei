@@ -14,7 +14,7 @@ class Character:
                  gender='',
                  player=False,
                  character_id=None):
-
+        from data.sql_commander import select_spell_list
         from data.sql_commander import get_character, create_character
 
         if not character_id:
@@ -42,7 +42,7 @@ class Character:
         self.dark_magic_skill = char_info[9]                          # Ступень тёмной магии
         self.light_magic_skill = char_info[10]                        # Ступень светлой магии
         self.character_class = char_info[11]                            # Класс персонажа
-        self.spells = char_info[12]                        # Базовые умения персонажа согласно классу
+        self.spells = select_spell_list(char_info[12])                        # Базовые умения персонажа согласно классу
         self.luck = char_info[13]                                                     # Удача
         self.alive = char_info[14]                                                 # Жив или мёртв
         self.player = char_info[15]                                              # Игровой ли персонаж
@@ -60,5 +60,5 @@ class Character:
                f'Ступень Черной магии: {self.dark_magic_skill}\n' \
                f'Ступень Белой магии: {self.light_magic_skill}\n' \
                f'Класс: {self.character_class}\n' \
-               # f'Умения: {[i for i in self.spells.keys()]}'
+               f'Умения: {[spell.name for spell in self.spells]}'
 
