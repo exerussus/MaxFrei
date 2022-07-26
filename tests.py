@@ -48,31 +48,19 @@ def sql_check():
     return cursor.fetchall()
 
 
-def sql_create_char():
-    from data.sql_commander import create_character
-
-    create_character()
-
-
-def sql_check_get_character():
-    from data.sql_commander import get_character
-    from data.sql_commander import create_character
-
-    print(get_character(create_character()))
-
-
 def class_check_new_character():
     from charaction.character import Character
     my_hero = Character(name="Таранис Джонс", gender='male')
     print(my_hero)
 
 
-def check_old_character(character_id):
+def check_character(character_id=None):
 
     from charaction.character import Character
     my_hero = Character(character_id=character_id)
     print(my_hero)
 
 
-check_old_character(1)
+
+
 
