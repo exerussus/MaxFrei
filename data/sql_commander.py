@@ -156,7 +156,6 @@ def create_character(
 
 
 def select_spell_list(character_id):
-    from spells.spell_description import DescriptionSpell
     from data.classes import classes
     db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()

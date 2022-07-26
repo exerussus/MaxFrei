@@ -1,9 +1,9 @@
 
 
-class BasicSpell:
+class EnergyAbsorption:
 
-    description = 'Базовый спелл'
-    spell_id = 0
+    description = 'Поглощение энергии'
+    spell_id = 3
 
     def __init__(self,
                  caster,   # Применяющий
@@ -11,7 +11,7 @@ class BasicSpell:
                  ):
         from data.sql_commander import select_spell
         from random import choice
-        info = select_spell(0)
+        info = select_spell(3)
         self.caster = caster                              # Тот, кто кастует
         self.target = target                              # Тот, кто цель заклинания
         self.spell_id = info[0]                          # идентификатор спелла
