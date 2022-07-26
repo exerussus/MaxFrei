@@ -60,5 +60,5 @@ class Character:
                f'Ступень Черной магии: {self.dark_magic_skill}\n' \
                f'Ступень Белой магии: {self.light_magic_skill}\n' \
                f'Класс: {self.character_class}\n' \
-               f'Умения: {[spell.name for spell in self.spells]}'
+               f'Умения: {[spell.description for spell in self.spells]}'
 

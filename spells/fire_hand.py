@@ -2,6 +2,9 @@
 
 class FireHand:
 
+    description = 'Огненная ладонь'
+    spell_id = 1
+
     def __init__(self,
                  caster,   # Применяющий
                  target,   # Цель заклинания
