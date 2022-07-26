@@ -4,6 +4,7 @@ class BasicSpell:
 
     description = 'Базовый спелл'
     spell_id = 0
+    mana_cost = 0
 
     def __init__(self,
                  caster,   # Применяющий

@@ -4,6 +4,7 @@ class EnergyAbsorption:
 
     description = 'Поглощение энергии'
     spell_id = 3
+    mana_cost = 0
 
     def __init__(self,
                  caster,   # Применяющий

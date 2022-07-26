@@ -4,6 +4,7 @@ class FireHand:
 
     description = 'Огненная ладонь'
     spell_id = 1
+    mana_cost = 15
 
     def __init__(self,
                  caster,   # Применяющий

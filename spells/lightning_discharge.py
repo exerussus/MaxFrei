@@ -4,6 +4,7 @@ class LightningDischarge:
 
     description = 'Разряд молнии'
     spell_id = 5
+    mana_cost = 60
 
     def __init__(self,
                  caster,   # Применяющий

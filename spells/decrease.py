@@ -4,6 +4,7 @@ class Decrease:
 
     description = 'Уменьшение'
     spell_id = 2
+    mana_cost = 10
 
     def __init__(self,
                  caster,   # Применяющий

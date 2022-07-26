@@ -4,6 +4,7 @@ class FirstShield:
 
     description = 'Первый щит'
     spell_id = 4
+    mana_cost = 25
 
     def __init__(self,
                  caster,   # Применяющий
