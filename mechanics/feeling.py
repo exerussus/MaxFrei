@@ -6,9 +6,9 @@ class Feeling:
     def mana_cost(value):
         if value >= 65:
             return "огромное количество"
-        elif 65 < value >= 45:
+        elif 65 > value >= 45:
             return "много"
-        elif 45 < value >= 25:
+        elif 45 > value >= 25:
             return "немного"
         elif 25 > value:
             return "мало"
