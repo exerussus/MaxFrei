@@ -27,5 +27,27 @@ class ActionChoice:
                     break
                 else:
                     print('Неверный номер действия...')
+        target = None
+        if result.direction == 'target':
 
-        return result
+            key = True
+            while key:
+                if key:
+
+                    print('1. На себя')
+                    print('2. На противника')
+                    choice = input("Выберите цель: ")
+
+                    if choice == '1':
+                        target = 'self'
+                        key = False
+                        break
+                    elif choice == '2':
+                        target = 'enemy'
+                        key = False
+                        break
+                    else:
+                        print('Неверный номер цели...')
+        else:
+            target = 'self'
+        return result, target
