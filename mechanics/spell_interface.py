@@ -29,5 +29,5 @@ class SpellInterface:
         self.mana_cost = self.info[8]
 
     def do(self, caster, target):
-        from spells.basic_spell import BasicSpell
+        from mechanics.basic_spell import BasicSpell
         return BasicSpell(caster, target, self.info)
