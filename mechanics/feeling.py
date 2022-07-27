@@ -16,15 +16,15 @@ class Feeling:
     @staticmethod
     def own_mana(value):
         if value >= 85:
-            return "Вы чувствуете себя полным энергии"
+            return "и полным энергии"
         elif 85 < value >= 65:
-            return "Вы чувствуете себя бодрым"
+            return "и бодрым"
         elif 65 < value >= 45:
-            return "Вы чувствуете себя усталым"
+            return "и усталым"
         elif 45 < value >= 25:
-            return "Вы чувствуете себя сильно уставшим"
+            return "и сильно уставшим"
         elif 25 > value:
-            return "Вы чувствуете себя истощенным"
+            return "и истощенным"
 
     @staticmethod
     def own_health(value):

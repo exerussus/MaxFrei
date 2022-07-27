@@ -65,8 +65,12 @@ def check_select_spell_list(character_id=None):
     from charaction.character import Character
 
     my_hero = Character(character_id=character_id)
-    print(my_hero)
+    return my_hero
 
 
-check_select_spell_list(1)
+def check_action_choice():
+    from mechanics.action_choice import ActionChoice
+    ActionChoice.do(check_select_spell_list(1))
 
+
+check_action_choice()
