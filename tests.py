@@ -78,4 +78,4 @@ def check_got_choice():
     print(BotChoice.do(check_character(1)))
 
 
-check_got_choice()
+print(check_select_spell_list(1))

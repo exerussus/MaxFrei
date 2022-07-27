@@ -156,7 +156,7 @@ def create_character(
 
 
 def select_spell_list(character_id):
-    from data.classes import classes
+    from mechanics.spell_interface import SpellInterface
     db = sqlite3.connect('data/data_base.db')
     cursor = db.cursor()
     cursor.execute(f"""SELECT spells FROM character WHERE character_id = {character_id};""")
@@ -177,7 +177,7 @@ def select_spell_list(character_id):
 
     for spell in spell_list:
 
-        result.append(classes[spell])
+        result.append(SpellInterface(spell))
 
     return result
 
