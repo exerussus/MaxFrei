@@ -48,6 +48,8 @@ class ActionChoice:
                         break
                     else:
                         print('Неверный номер цели...')
+        elif result.direction == 'enemy':
+            target = 'enemy'
         else:
             target = 'self'
         return result, target

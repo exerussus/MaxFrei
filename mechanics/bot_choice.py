@@ -6,4 +6,6 @@ class BotChoice:
     @staticmethod
     def do(character):
         import random
-        return random.choice(character.spells)
+        spell = random.choice(character.spells)
+        if spell.direction == 'target':
+            if spell. DОПИСАТЬ...................\\\\\\\\\\\\\\\\
