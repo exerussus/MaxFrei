@@ -8,15 +8,11 @@ class Turn:
         self.turn_now = self.first_char
 
     def do(self):
-
-        spells = [spell for spell in self.turn_now.spells]
-
+        from mechanics.action_choice import ActionChoice
         if self.turn_now.player:
-            count = 0
-            for spell in spells:
-                count += 1
-                print(f"{count}. {spell} | {spell.value_mana_caster} энергии")  # НЕ ДОЛЖНО РАБОТАТЬ!
-                # Экземпляр спелла ещё не создан, поэтому референс на value_mana_caster должен
-                # вызвать ошибку. Варианты: создание класса при получении спелла, а потом делать
-                # deepcopy при каждом касте, но нужно ещё думать
+            ActionChoice.do(self.turn_now)
+        else:
+            pass
+        self.turn_now = self.second_char if self.turn_now == self.first_char else self.turn_now = self.first_char
+
 

@@ -3,7 +3,7 @@ def battle_test():
     from charaction.character import Character
     from battle.battle_ground import BattleGround
 
-    max_frei = Character(name='Макс Фрай', character_class='Истинный маг')
+    max_frei = Character(name='Макс Фрай')
     enemy = Character()
     battle = BattleGround(max_frei, enemy)
 
