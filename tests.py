@@ -58,7 +58,7 @@ def check_character(character_id=None):
 
     from charaction.character import Character
     my_hero = Character(character_id=character_id)
-    print(my_hero)
+    return my_hero
 
 
 def check_select_spell_list(character_id=None):
@@ -73,4 +73,9 @@ def check_action_choice():
     ActionChoice.do(check_select_spell_list(1))
 
 
-check_action_choice()
+def check_got_choice():
+    from mechanics.bot_choice import BotChoice
+    print(BotChoice.do(check_character(1)))
+
+
+check_got_choice()

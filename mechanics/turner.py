@@ -1,6 +1,7 @@
 
 
 class Turn:
+    """Даёт возможность выбрать спелл через action_choice для человека и bot_choice боту, и передает ход"""
 
     def __init__(self, first_char, second_char):
         self.first_char = first_char
