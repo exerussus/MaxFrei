@@ -78,4 +78,16 @@ def check_got_choice():
     print(BotChoice.do(check_character(1)))
 
 
-print(check_select_spell_list(1))
+lst = [1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1]
+count_cycle = len(lst)
+count = 0
+
+for _ in range(count_cycle):
+    for i in lst:
+        if i == 1:
+            count += 1
+            lst.remove(i)
+            print(f'{count} круг: {lst}')
+            break
+
+print(f'Итог: {lst}')

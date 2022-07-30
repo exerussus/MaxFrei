@@ -31,6 +31,7 @@ class BasicSpell:
         self.defend_stopper_target = info[20]           # Запрещает защиту кастеру
         self.dispelling = info[21]                        # Можно ли развеять
         self.description = info[22]                        # Описание
+        self.speed = info[23]
 
         # Логика для количества энергии цели
         if self.caster.dark_magic_skill >= self.dark_magic_spell:

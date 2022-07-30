@@ -61,11 +61,27 @@ class BattleGround:
 
     def main(self):
         """Здесь кастуются спелы и проходят проверки. Работает, пока кто-нибудь не проиграет"""
-        from mechanics.spell_ruler import SpellRuler
-
-        SpellRuler.do()
+        from mechanics.action_choice import ActionChoice
 
         while not self.loser:
+            first_set = ActionChoice.do(self.first_char)
+            second_set = ActionChoice.do(self.second_char)
+
+            if first_set[0].speed < second_set[0].speed:
+                target = self.first_char if first_set[1] == 'self' else self.second_char
+                first_spell = first_set[0](self.first_char, target)
+
+                target = self.second_char if first_set[1] == 'self' else self.first_char
+                second_spell = second_set[0](self.second_char, target)
+            else:
+                target = self.second_char if first_set[1] == 'self' else self.first_char
+                first_spell = second_set[0](self.second_char, target)
+
+                target = self.first_char if first_set[1] == 'self' else self.second_char
+                second_spell = first_set[0](self.first_char, target)
+
+            self.spells.insert(0, second_spell)
+            self.spells.insert(0, first_spell)
 
             for spell in self.spells:
                 if spell.count > 0:

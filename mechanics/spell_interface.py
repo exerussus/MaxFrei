@@ -27,6 +27,7 @@ class SpellInterface:
         self.dispelling = self.info[21]  # Можно ли развеять
         self.description = self.info[22]  # Описание
         self.mana_cost = self.info[8]
+        self.speed = self.info[23]
 
     def do(self, caster, target):
         from mechanics.basic_spell import BasicSpell
