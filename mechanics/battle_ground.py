@@ -12,35 +12,35 @@ class BattleGround:
 
     def checking_defeat_everybody(self):
         """Условие поражения для всех сразу"""
-        if self.first_char.player and self.second_char.player and self.first_char <= 0 >= self.second_char:
+        if self.first_char.player and self.second_char.player and self.first_char.health <= 0 >= self.second_char.health:
             self.loser = 'everybody'
-            return self.loser
 
     def checking_defeat_first(self):
         """Условие поражения для второго персонажа"""
-        if self.checking_defeat_everybody():
-            return self.loser
-        elif self.first_char.player:
+
+        if self.first_char.player:
             if self.first_char.health <= 0:
                 self.loser = self.first_char
-            return self.loser
+
         else:
             if self.first_char.health <= 0 < self.second_char.health:
                 self.loser = self.first_char
-            return self.loser
 
     def checking_defeat_second(self):
         """Условие поражения для первого персонажа"""
-        if self.checking_defeat_everybody():
-            return self.loser
-        elif self.second_char.player:
+        if self.second_char.player:
             if self.first_char.health <= 0:
                 self.loser = self.first_char
-            return self.loser
+
         else:
             if self.second_char.health <= 0 < self.first_char.health:
                 self.loser = self.second_char
-            return self.loser
+
+    def who_is_defeated(self):
+        self.checking_defeat_everybody()
+        if not self.loser:
+            self.checking_defeat_first()
+            self.checking_defeat_second()
 
     def checking_luck(self):
         """Отнимает удачу у проигравшего и проверяет оставшееся количество. Если удача = 0 --> убивает персонажа"""
@@ -113,7 +113,7 @@ class BattleGround:
             self.spell_activate()
 
             # Прерывает сражение, если есть проигравший  (!!!!!!!!!!!НАДО ПЕРЕПРОВЕРИТЬ!!!!!!!!!!)
-            if self.checking_defeat_first() or self.checking_defeat_second():
+            if self.loser:
                 break
 
         self.checking_luck()
