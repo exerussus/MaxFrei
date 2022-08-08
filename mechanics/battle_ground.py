@@ -57,6 +57,24 @@ class BattleGround:
 
 # ************************************* КОНЕЦ ЛОГИКИ ************************************ #
 
+    def spell_activate(self):
+        """Проверяет активность, если активен - вызывает эффект, а так же удаляет отработанные спеллы"""
+        spell_list_len = len(self.spells)
+        for _ in range(spell_list_len):
+            cycle_count = 0
+            for spell in self.spells:
+                # Проверка на активность спелла (кастился ли он уже)
+                if spell.activated:
+                    if spell.count > 0:
+                        spell.do()
+                        spell.count -= 1
+                        spell.activated = False
+                        cycle_count += 1
+                    else:
+                        # Удаление отработанного спелла
+                        self.spells.pop(cycle_count)
+                        break
+
 # ***************************** ТУТ НАЧИНАЕТСЯ САМОЕ ВАЖНОЕ ***************************** #
 
     def main(self):
@@ -87,21 +105,16 @@ class BattleGround:
                 target = self.first_char if first_set[1] == 'self' else self.second_char
                 second_spell = first_set[0](self.first_char, target)
 
-            # Добавление спеллов в стэк спеллов
+            # Добавление спеллов в стук спеллов
             self.spells.insert(0, second_spell)
             self.spells.insert(0, first_spell)
 
-            spell_list_len = len(self.spells)
-            cycle_count = 0
-            for _ in range(spell_list_len):
-                for spell in self.spells:
-                    if spell.count > 0:
-                        spell.do()
-                        spell.count -= 1
-                    else:
+            # Поочередное применение спеллов
+            self.spell_activate()
 
-                        if self.checking_defeat_first() or self.checking_defeat_second():
-                            break
+            # Прерывает сражение, если есть проигравший  (!!!!!!!!!!!НАДО ПЕРЕПРОВЕРИТЬ!!!!!!!!!!)
+            if self.checking_defeat_first() or self.checking_defeat_second():
+                break
 
         self.checking_luck()
 

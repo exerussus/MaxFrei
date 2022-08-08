@@ -32,6 +32,7 @@ class BasicSpell:
         self.dispelling = info[21]                        # Можно ли развеять
         self.description = info[22]                        # Описание
         self.speed = info[23]
+        self.activated = True
 
         # Логика для количества энергии цели
         if self.caster.dark_magic_skill >= self.dark_magic_spell:
