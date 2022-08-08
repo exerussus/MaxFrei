@@ -58,6 +58,15 @@ class BattleGround:
 
 # ************************************* КОНЕЦ ЛОГИКИ ************************************ #
 
+    def refresh(self):
+        for i in [self.first_char, self.second_char]:
+            i.mana += 10 + i.dark_magic_skill*0.05 + i.light_magic_skill*0.05
+            if i.mana > 100:
+                i.mana = 100
+            i.psyche += i.psyche*0.07 + 1
+            if i.psyche > 100:
+                i.psyche = 100
+
     def spell_activate(self):
         """Проверяет активность, если активен - вызывает эффект, а так же удаляет отработанные спеллы"""
         spell_list_len = len(self.spells)
@@ -125,6 +134,8 @@ class BattleGround:
             if self.loser:
                 self.debug_mod(f"self.loser = {self.loser}")
                 break
+
+            self.refresh()
 
         self.checking_luck()
 

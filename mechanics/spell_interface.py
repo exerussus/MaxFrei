@@ -33,6 +33,8 @@ class SpellInterface:
     def do(self, caster, target):
         from mechanics.basic_spell import BasicSpell
         from random import randint
+        print(f"self.cost = {self.cost}")
+        print(f"caster.mana = {caster.mana}")
         if self.cost <= caster.mana or 100/self.cost*caster.mana >= randint(0, 100):
             return BasicSpell(caster, target, self.info)
         else:
