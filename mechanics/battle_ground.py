@@ -61,7 +61,6 @@ class BattleGround:
         """Проверяет активность, если активен - вызывает эффект, а так же удаляет отработанные спеллы"""
         spell_list_len = len(self.spells)
         for _ in range(spell_list_len):
-            cycle_count = 0
             for spell in self.spells:
                 # Проверка на активность спелла (кастился ли он уже)
                 if spell.activated:
@@ -69,10 +68,9 @@ class BattleGround:
                         spell.do()
                         spell.count -= 1
                         spell.activated = False
-                        cycle_count += 1
                     else:
                         # Удаление отработанного спелла
-                        self.spells.pop(cycle_count)
+                        self.spells.remove(spell)
                         break
 
 # ***************************** ТУТ НАЧИНАЕТСЯ САМОЕ ВАЖНОЕ ***************************** #
@@ -112,7 +110,8 @@ class BattleGround:
             # Поочередное применение спеллов
             self.spell_activate()
 
-            # Прерывает сражение, если есть проигравший  (!!!!!!!!!!!НАДО ПЕРЕПРОВЕРИТЬ!!!!!!!!!!)
+            # Прерывает сражение, если есть проигравший
+            self.who_is_defeated()
             if self.loser:
                 break
 

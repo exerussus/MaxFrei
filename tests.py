@@ -80,14 +80,12 @@ def check_got_choice():
 
 lst = [1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1]
 count_cycle = len(lst)
-count = 0
 
 for _ in range(count_cycle):
     for i in lst:
         if i == 1:
-            count += 1
             lst.remove(i)
-            print(f'{count} круг: {lst}')
+            print(f'{lst}')
             break
 
 print(f'Итог: {lst}')
