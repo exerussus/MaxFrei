@@ -28,7 +28,15 @@ class SpellInterface:
         self.description = self.info[22]  # Описание
         self.mana_cost = self.info[8]
         self.speed = self.info[23]
+        self.cost = self.info[24]
 
     def do(self, caster, target):
         from mechanics.basic_spell import BasicSpell
-        return BasicSpell(caster, target, self.info)
+        from random import randint
+        if self.cost <= caster.mana or 100/self.cost*caster.mana >= randint(0, 100):
+            return BasicSpell(caster, target, self.info)
+        else:
+            caster.mana -= self.cost
+            broken_spell = BasicSpell(caster, target, self.info)
+            broken_spell.count = 0
+            return broken_spell

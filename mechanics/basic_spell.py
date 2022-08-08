@@ -17,9 +17,10 @@ class BasicSpell:
         self.direction = info[5]                          # Направление спела (противник, на себя, может быть и оба)
         self.value_health_caster = info[6]               # Количество здоровья применяющего
         self.value_psyche_caster = info[7]               # Количество психики применяющего
-        self.value_mana_target = info[11]                 # Количество энергии цели
+        self.value_mana_caster = info[8]
         self.value_health_target = info[9]               # Количество здоровья цели
         self.value_psyche_target = info[10]              # Количество психики цели
+        self.value_mana_target = info[11]                 # Количество энергии цели
         self.light_magic_spell = info[12]                # Ступень магии
         self.dark_magic_spell = info[13]                  # Ступень магии
         self.count = info[14]                                # Количество ходов
@@ -32,6 +33,7 @@ class BasicSpell:
         self.dispelling = info[21]                        # Можно ли развеять
         self.description = info[22]                        # Описание
         self.speed = info[23]
+        self.cost = info[24]
         self.activated = True
 
         # Логика для количества энергии цели
@@ -44,12 +46,13 @@ class BasicSpell:
             light_cost = 0
         else:
             light_cost = self.light_magic_spell - self.caster.light_magic_skill
-        all_cost = choice([info[8]/5, -info[8]/5]) + dark_cost + light_cost
+        all_cost = choice([self.cost/5, -self.cost/5]) + dark_cost + light_cost
         if all_cost < info[8]/2:
             all_cost = info[8]/2
-        self.value_mana_caster = info[8] - all_cost  # Кол-тво энергии кастера с учётом всех требований
+        self.cost += - all_cost  # Кол-тво энергии кастера с учётом всех требований
 
     def do(self):
+        self.caster.mana -= self.cost
         self.caster.mana += self.value_mana_caster
         self.caster.health += self.value_health_caster   # Количество здоровья применяющего
         self.caster.psyche += self.value_psyche_caster   # Количество психики применяющего
