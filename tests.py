@@ -1,7 +1,7 @@
 
 def battle_test():
     from charaction.character import Character
-    from battle.battle_ground import BattleGround
+    from mechanics.battle_ground import BattleGround
 
     max_frei = Character(name='Макс Фрай')
     enemy = Character()

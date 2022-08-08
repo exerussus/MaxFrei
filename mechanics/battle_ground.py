@@ -64,31 +64,44 @@ class BattleGround:
         from mechanics.action_choice import ActionChoice
 
         while not self.loser:
+            # Выбор спелла игроками
             first_set = ActionChoice.do(self.first_char)
             second_set = ActionChoice.do(self.second_char)
 
+            # Проверка скорости
             if first_set[0].speed < second_set[0].speed:
+
+                # Условия таргета для первого игрока
                 target = self.first_char if first_set[1] == 'self' else self.second_char
                 first_spell = first_set[0](self.first_char, target)
 
+                # Условия таргета для второго игрока
                 target = self.second_char if first_set[1] == 'self' else self.first_char
                 second_spell = second_set[0](self.second_char, target)
             else:
+                # Условия таргета для второго игрока
                 target = self.second_char if first_set[1] == 'self' else self.first_char
                 first_spell = second_set[0](self.second_char, target)
 
+                # Условие для таргета первого игрока
                 target = self.first_char if first_set[1] == 'self' else self.second_char
                 second_spell = first_set[0](self.first_char, target)
 
+            # Добавление спеллов в стэк спеллов
             self.spells.insert(0, second_spell)
             self.spells.insert(0, first_spell)
 
-            for spell in self.spells:
-                if spell.count > 0:
-                    spell.do()
+            spell_list_len = len(self.spells)
+            cycle_count = 0
+            for _ in range(spell_list_len):
+                for spell in self.spells:
+                    if spell.count > 0:
+                        spell.do()
+                        spell.count -= 1
+                    else:
 
-                    if self.checking_defeat_first() or self.checking_defeat_second():
-                        break
+                        if self.checking_defeat_first() or self.checking_defeat_second():
+                            break
 
         self.checking_luck()
 
