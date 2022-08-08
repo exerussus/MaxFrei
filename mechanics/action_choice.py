@@ -7,11 +7,12 @@ class ActionChoice:
     def do(character):
         from mechanics.feeling import Feeling
         count = 0
+        print(character.name)
         print(f"{Feeling.own_health(character.health)} {Feeling.own_mana(character.mana)}")
 
         for action in character.spells:
             count += 1
-            print(f"{count}. {action.description} {Feeling.mana_cost(action.mana_cost)}")
+            print(f"{count}. {action.name} {Feeling.mana_cost(action.mana_cost)}")
 
         result = None
         key = True

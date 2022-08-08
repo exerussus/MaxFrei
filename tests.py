@@ -78,14 +78,13 @@ def check_got_choice():
     print(BotChoice.do(check_character(1)))
 
 
-lst = [1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1]
-count_cycle = len(lst)
+def checking_battle_ground():
+    from charaction.character import Character
+    from mechanics.battle_ground import BattleGround
+    my_first_hero = Character(player=True)
+    my_second_hero = Character(player=True)
+    new_battle = BattleGround(my_first_hero, my_second_hero)
+    new_battle.main()
 
-for _ in range(count_cycle):
-    for i in lst:
-        if i == 1:
-            lst.remove(i)
-            print(f'{lst}')
-            break
 
-print(f'Итог: {lst}')
+checking_battle_ground()

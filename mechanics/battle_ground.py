@@ -7,6 +7,7 @@ class BattleGround:
         self.second_char = second_char
         self.spells = []
         self.loser = None
+        self.debug = False
 
 # ************************************ НАЧАЛО ЛОГИКИ ************************************ #
 
@@ -73,6 +74,9 @@ class BattleGround:
                         self.spells.remove(spell)
                         break
 
+    def debug_mod(self, text):
+        if self.debug:
+            print(text)
 # ***************************** ТУТ НАЧИНАЕТСЯ САМОЕ ВАЖНОЕ ***************************** #
 
     def main(self):
@@ -81,38 +85,45 @@ class BattleGround:
 
         while not self.loser:
             # Выбор спелла игроками
+            self.debug_mod("Первый игрок выбирает спелл")
             first_set = ActionChoice.do(self.first_char)
             second_set = ActionChoice.do(self.second_char)
 
             # Проверка скорости
+            self.debug_mod("Проверка скорости")
             if first_set[0].speed < second_set[0].speed:
 
                 # Условия таргета для первого игрока
                 target = self.first_char if first_set[1] == 'self' else self.second_char
-                first_spell = first_set[0](self.first_char, target)
+                first_spell = first_set[0].do(self.first_char, target)
+                self.debug_mod(f"target = {target}, first_spell = {first_spell}")
 
                 # Условия таргета для второго игрока
                 target = self.second_char if first_set[1] == 'self' else self.first_char
-                second_spell = second_set[0](self.second_char, target)
+                second_spell = second_set[0].do(self.second_char, target)
+                self.debug_mod(f"target = {target}, second_spell = {second_spell}")
             else:
                 # Условия таргета для второго игрока
                 target = self.second_char if first_set[1] == 'self' else self.first_char
-                first_spell = second_set[0](self.second_char, target)
+                first_spell = second_set[0].do(self.second_char, target)
+                self.debug_mod(f"target = {target}, first_spell = {first_spell}")
 
                 # Условие для таргета первого игрока
                 target = self.first_char if first_set[1] == 'self' else self.second_char
-                second_spell = first_set[0](self.first_char, target)
+                second_spell = first_set[0].do(self.first_char, target)
+                self.debug_mod(f"target = {target}, second_spell = {second_spell}")
 
             # Добавление спеллов в стук спеллов
             self.spells.insert(0, second_spell)
             self.spells.insert(0, first_spell)
-
+            self.debug_mod(f"self.spells = {self.spells}")
             # Поочередное применение спеллов
             self.spell_activate()
 
             # Прерывает сражение, если есть проигравший
             self.who_is_defeated()
             if self.loser:
+                self.debug_mod(f"self.loser = {self.loser}")
                 break
 
         self.checking_luck()
