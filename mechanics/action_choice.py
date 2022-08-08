@@ -7,9 +7,10 @@ class ActionChoice:
     def do(character):
         from mechanics.feeling import Feeling
         count = 0
+        print('')
         print(character.name)
         print(f"{Feeling.own_health(character.health)} {Feeling.own_mana(character.mana)}")
-
+        print('')
         for action in character.spells:
             count += 1
             print(f"{count}. {action.name} {Feeling.mana_cost(action.mana_cost)}")
@@ -29,6 +30,7 @@ class ActionChoice:
                 else:
                     print('Неверный номер действия...')
         target = None
+        print('')
         if result.direction == 'target':
 
             key = True

@@ -60,9 +60,13 @@ class BattleGround:
 
     def refresh(self):
         for i in [self.first_char, self.second_char]:
+            if i.mana < 0:
+                i.mana = 0
             i.mana += 10 + i.dark_magic_skill*0.05 + i.light_magic_skill*0.05
             if i.mana > 100:
                 i.mana = 100
+            if i.psyche < 0:
+                i.psyche = 0
             i.psyche += i.psyche*0.07 + 1
             if i.psyche > 100:
                 i.psyche = 100
@@ -94,47 +98,44 @@ class BattleGround:
 
         while not self.loser:
             # Выбор спелла игроками
-            self.debug_mod("Первый игрок выбирает спелл")
             first_set = ActionChoice.do(self.first_char)
             second_set = ActionChoice.do(self.second_char)
 
             # Проверка скорости
-            self.debug_mod("Проверка скорости")
             if first_set[0].speed < second_set[0].speed:
 
                 # Условия таргета для первого игрока
                 target = self.first_char if first_set[1] == 'self' else self.second_char
                 first_spell = first_set[0].do(self.first_char, target)
-                self.debug_mod(f"target = {target}, first_spell = {first_spell}")
 
                 # Условия таргета для второго игрока
                 target = self.second_char if first_set[1] == 'self' else self.first_char
                 second_spell = second_set[0].do(self.second_char, target)
-                self.debug_mod(f"target = {target}, second_spell = {second_spell}")
             else:
                 # Условия таргета для второго игрока
                 target = self.second_char if first_set[1] == 'self' else self.first_char
                 first_spell = second_set[0].do(self.second_char, target)
-                self.debug_mod(f"target = {target}, first_spell = {first_spell}")
 
                 # Условие для таргета первого игрока
                 target = self.first_char if first_set[1] == 'self' else self.second_char
                 second_spell = first_set[0].do(self.first_char, target)
-                self.debug_mod(f"target = {target}, second_spell = {second_spell}")
 
             # Добавление спеллов в стук спеллов
             self.spells.insert(0, second_spell)
             self.spells.insert(0, first_spell)
-            self.debug_mod(f"self.spells = {self.spells}")
             # Поочередное применение спеллов
             self.spell_activate()
 
             # Прерывает сражение, если есть проигравший
             self.who_is_defeated()
             if self.loser:
-                self.debug_mod(f"self.loser = {self.loser}")
                 break
-
+            self.debug_mod(f"\n{self.first_char.name}: health - {self.first_char.health}, "
+                                                   f"psyche - {self.first_char.psyche}, "
+                                                   f"mana - {self.first_char.mana}")
+            self.debug_mod(f"{self.second_char.name}: health - {self.second_char.health}, "
+                           f"psyche - {self.second_char.psyche}, "
+                           f"mana - {self.second_char.mana}\n")
             self.refresh()
 
         self.checking_luck()

@@ -84,6 +84,7 @@ def checking_battle_ground():
     my_first_hero = Character(character_id=1)
     my_second_hero = Character(character_id=2)
     new_battle = BattleGround(my_first_hero, my_second_hero)
+    new_battle.debug = True
     new_battle.main()
 
 
