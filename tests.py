@@ -82,6 +82,7 @@ def checking_battle_ground():
     from charaction.character import Character
     from mechanics.battle_ground import BattleGround
     my_first_hero = Character(character_id=1)
+    my_first_hero.player = True
     my_second_hero = Character(character_id=2)
     new_battle = BattleGround(my_first_hero, my_second_hero)
     new_battle.debug = True

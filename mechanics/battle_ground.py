@@ -19,23 +19,14 @@ class BattleGround:
     def checking_defeat_first(self):
         """Условие поражения для второго персонажа"""
 
-        if self.first_char.player:
-            if self.first_char.health <= 0:
-                self.loser = self.first_char
-
-        else:
-            if self.first_char.health <= 0 < self.second_char.health:
-                self.loser = self.first_char
+        if self.first_char.health <= 0:
+            self.loser = self.first_char
 
     def checking_defeat_second(self):
         """Условие поражения для первого персонажа"""
-        if self.second_char.player:
-            if self.first_char.health <= 0:
-                self.loser = self.first_char
 
-        else:
-            if self.second_char.health <= 0 < self.first_char.health:
-                self.loser = self.second_char
+        if self.second_char.health <= 0:
+            self.loser = self.second_char
 
     def who_is_defeated(self):
         self.checking_defeat_everybody()
@@ -127,6 +118,8 @@ class BattleGround:
             self.spell_activate()
 
             # Прерывает сражение, если есть проигравший
+            self.debug_mod(f"\n{self.first_char.name}: health - {self.first_char.health}")
+            self.debug_mod(f"\n{self.second_char.name}: health - {self.second_char.health}")
             self.who_is_defeated()
             if self.loser:
                 break
@@ -137,6 +130,12 @@ class BattleGround:
                            f"psyche - {self.second_char.psyche}, "
                            f"mana - {self.second_char.mana}\n")
             self.refresh()
+            self.debug_mod(f"\n{self.first_char.name}: health - {self.first_char.health}, "
+                                                   f"psyche - {self.first_char.psyche}, "
+                                                   f"mana - {self.first_char.mana}")
+            self.debug_mod(f"\n{self.second_char.name}: health - {self.second_char.health}, "
+                           f"psyche - {self.second_char.psyche}, "
+                           f"mana - {self.second_char.mana}\n")
 
         self.checking_luck()
 
