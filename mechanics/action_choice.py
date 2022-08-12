@@ -22,11 +22,12 @@ class ActionChoice:
             if key:
                 try:
                     choice = int(input("Выберите номер действия: "))-1
+
                 except TypeError:
                     choice = ''
-                if 0 < choice < len(character.spells):
+
+                if 0 <= choice < len(character.spells):
                     result = character.spells[choice]
-                    print(f"type: {type(result)}, variable: result - {result}")
                     key = False
                     break
                 else:
